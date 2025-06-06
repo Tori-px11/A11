@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Butterfly to Zone Out</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #000; }
+
+    #text-screen, #model-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 1.6rem;
+      padding: 20px;
+      box-sizing: border-box;
+      background: #000;
+      color: #fff;
+      transition: opacity 1s ease;
+    }
+
+    #model-screen {
+      display: none;
+      flex-direction: column;
+    }
+
+    canvas { display: block; }
+
+    #thank-you {
+      position: absolute;
+      bottom: 40px;
+      font-size: 2rem;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 1s ease;
+      pointer-events: none;
+    }
+
+    #repeat-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #fff;
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    #repeat-button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="text-screen">
+    <div id="text-content">Hello</div>
+  </div>
+
+  <div id="model-screen">
+    <div id="thank-you">thank you</div>
+    <button id="repeat-button">Repeat</button>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+
+    const texts = [
+      "Hello",
+      "Right now, you need to rest",
+      "I'd like to ask you to put your phone down",
+      "Now you should dive into the music",
+      "And so you don’t stare into the void, we have a butterfly you can zone out on"
+    ];
+
+    let currentText = 0;
+    let isFirstTime = true;
+    let scene, camera, renderer, model;
+
+    const textScreen = document.getElementById('text-screen');
+    const textContent = document.getElementById('text-content');
+    const modelScreen = document.getElementById('model-screen');
+    const thankYou = document.getElementById('thank-you');
+    const repeatButton = document.getElementById('repeat-button');
+
+    // Глобальный клик по экрану с текстом
+    document.addEventListener('click', () => {
+      const computedStyle = window.getComputedStyle(textScreen);
+      if (isFirstTime && computedStyle.display !== "none" && computedStyle.opacity !== "0") {
+        nextText();
+      }
+    });
+
+    // Альтернатива: клавиша Enter
+    document.addEventListener('keydown', (e) => {
+      const computedStyle = window.getComputedStyle(textScreen);
+      if (e.key === 'Enter' && isFirstTime && computedStyle.display !== "none" && computedStyle.opacity !== "0") {
+        nextText();
+      }
+    });
+
+    repeatButton.addEventListener('click', () => {
+      restartButterfly();
+    });
+
+    function nextText() {
+      currentText++;
+      if (currentText < texts.length) {
+        textContent.textContent = texts[currentText];
+      } else {
+        textScreen.style.opacity = '0';
+        setTimeout(() => {
+          textScreen.style.display = 'none';
+          modelScreen.style.display = 'flex';
+          isFirstTime = false;
+          showButterfly();
+        }, 1000);
+      }
+    }
+
+    function showButterfly() {
+      thankYou.style.opacity = '0';
+      repeatButton.style.display = 'none';
+
+      // Очистка старого канваса
+      const oldCanvas = modelScreen.querySelector('canvas');
+      if (oldCanvas) oldCanvas.remove();
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color('#000');
+
+      camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 1, 3);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      modelScreen.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 10, 7.5);
+      scene.add(directionalLight);
+
+      model = null;
+      const loader = new GLTFLoader();
+      loader.load('animated-flying-fluttering-butterfly-loop/source/Fluttering butterfly.glb', function(gltf) {
+        model = gltf.scene;
+        model.scale.set(1, 1, 1);
+        scene.add(model);
+        animate();
+      }, undefined, function(error) {
+        console.error('Model loading error:', error);
+      });
+
+      let isDragging = false;
+      let previousMousePosition = { x: 0, y: 0 };
+
+      renderer.domElement.addEventListener('mousedown', () => isDragging = true);
+      renderer.domElement.addEventListener('mouseup', () => isDragging = false);
+      renderer.domElement.addEventListener('mousemove', (e) => {
+        if (isDragging && model) {
+          const deltaX = e.clientX - previousMousePosition.x;
+          model.rotation.y += deltaX * 0.01;
+        }
+        previousMousePosition = {
+          x: e.clientX,
+          y: e.clientY
+        };
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      setTimeout(() => {
+        thankYou.style.opacity = '1';
+        repeatButton.style.display = 'block';
+      }, 30000);
+    }
+
+    function restartButterfly() {
+      showButterfly();
+    }
+  </script>
+</body>
+</html>
