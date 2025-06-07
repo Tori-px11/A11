@@ -4,6 +4,7 @@ let bounce = 0.5;
 let friction = 0.98;
 let letterSize = 100;
 
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textSize(letterSize);

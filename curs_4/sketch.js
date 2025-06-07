@@ -27,7 +27,7 @@ function setup() {
   });
 
   // Кнопка "←" Назад
-  backBtn = createButton('←');
+  backBtn = createButton('🠄');
   backBtn.position(20, 20);
   styleButton(backBtn);
   backBtn.mousePressed(() => {
