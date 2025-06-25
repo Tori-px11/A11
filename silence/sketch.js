@@ -3,7 +3,7 @@ let texts = [
   "Right now, you need to rest",
   "I'd like to ask you to put your phone down",
   "Now you should dive into the music",
-  "And so you don’t stare into the void, we have a butterfly you can zone out on"
+  "And so you don’t stare into the void, we have a butterfly you can relax while watching"
 ];
 
 let currentIndex = 0;
@@ -16,7 +16,6 @@ function setup() {
   textAlign(CENTER, CENTER);
   textSize(28);
   fill(255);
-  noCursor();
 }
 
 function draw() {

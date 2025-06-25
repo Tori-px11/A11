@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lava Sketch</title>
+
+  <!-- p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.0/lib/p5.min.js"></script>
+
+  <!-- SVG.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.2/dist/svg.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+    }
+    #lava-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0; /* скрываем canvas, он не нужен визуально */
+    }
+  </style>
+</head>
+<body>
+  <div id="lava-wrapper"></div>
+  <script src="sketch2.js"></script>
+</body>
+</html>
