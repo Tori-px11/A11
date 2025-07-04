@@ -18,7 +18,6 @@ function setup() {
   textFont('Manrope');
   textStyle(BOLD);
 
-
   document.getElementById("page1").style.display = "block";
 
   // Изначально показываем кнопку click here по центру
@@ -27,6 +26,8 @@ function setup() {
   clickHereBtn.style.top = "50%";
   clickHereBtn.style.left = "50%";
   clickHereBtn.style.transform = "translate(-50%, -50%)";
+  clickHereBtn.style.backgroundColor = "#808080"; // Changed to
+  clickHereBtn.style.borderRadius = "30px"; // Increased roundness
 
   // Обработчик клика на кнопку
   clickHereBtn.addEventListener("click", startAnimation);
@@ -55,6 +56,8 @@ function startAnimation() {
 
   // Показываем кнопку Next внизу справа
   document.getElementById("nextBtn").style.display = "block";
+  document.getElementById("nextBtn").style.backgroundColor = "#ffc300"; // Changed to #ffc300
+  document.getElementById("nextBtn").style.borderRadius = "30px"; // Increased roundness
 }
 
 function draw() {
@@ -102,8 +105,8 @@ function mousePressed() {
 function drawResetButton() {
   push();
   noStroke();
-  fill(255, 235, 0);
-  rect(width - buttonSize - 10, 10, buttonSize, buttonSize, 10);
+  fill('#ffc300'); // Changed to #ffc300
+  rect(width - buttonSize - 10, 10, buttonSize, buttonSize, 15); // Increased corner radius to 15
   fill(0);
   textSize(28);
   text("⟳", width - buttonSize / 2 - 10, buttonSize / 2 + 10);
@@ -122,6 +125,8 @@ function resetScene() {
   clickHereBtn.style.top = "50%";
   clickHereBtn.style.left = "50%";
   clickHereBtn.style.transform = "translate(-50%, -50%)";
+  clickHereBtn.style.backgroundColor = "#ffc300"; // Changed to #ffc300
+  clickHereBtn.style.borderRadius = "30px"; // Increased roundness
 
   document.getElementById("nextBtn").style.display = "none";
 }
@@ -156,9 +161,9 @@ class FallingLetter {
 
   display() {
     push();
-    stroke('rgb(255,235,0)');
+    stroke('rgb(255,195,0)');
     strokeWeight(10);
-    fill(this.char === "A" ? 'rgb(255,235,0)' : 0);
+    fill(this.char === "A" ? 'rgb(255,195,0)' : 0);
     text(this.char, this.x, this.y);
     pop();
   }
@@ -199,14 +204,13 @@ function resolveCollision(a, b) {
   }
 }
 
- function selectRelaxation(type) {
-    console.log(`Selected relaxation type: ${type}`);
-    alert(`You selected: ${type} relaxation`);
- }
+function selectRelaxation(type) {
+  console.log(`Selected relaxation type: ${type}`);
+  alert(`You selected: ${type} relaxation`);
+}
 
-
- function selectRelaxation(type) {
-            console.log(`Selected relaxation type: ${type}`);
-            // Add your relaxation selection logic here
-            alert(`You selected: ${type} relaxation`);
-        }
+function selectRelaxation(type) {
+  console.log(`Selected relaxation type: ${type}`);
+  // Add your relaxation selection logic here
+  alert(`You selected: ${type} relaxation`);
+}

@@ -2,19 +2,21 @@ let canvasSize;
 let strokes = []; // Array to store strokes (each stroke is an array of points)
 let currentStroke = null; // Current stroke being drawn
 let clearButton; // Button for clearing canvas
+let replayButton; // Button for replaying strokes
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background('black');
   angleMode(DEGREES); // Use degrees for rotation
   
-  // Create clear button
+  // Create clear button (top-right, rounded rectangle)
   clearButton = createButton('Clear');
-  clearButton.position(10, 10); // Top-left corner
-  clearButton.style('background-color', '#333'); // Dark background
-  clearButton.style('color', 'yellow'); // Yellow text
+  clearButton.position(windowWidth - 100, 20); // Top-right corner
+  clearButton.style('background-color', '#ffffff'); // White background
+  clearButton.style('color', '#333'); // Dark text
   clearButton.style('border', '1px solid yellow'); // Yellow border
-  clearButton.style('padding', '5px 10px'); // Padding for size
+  clearButton.style('border-radius', '30px'); // Rounded edges
+  clearButton.style('padding', '10px 20px'); // Padding for size
   clearButton.style('font-size', '16px'); // Readable font size
   clearButton.style('cursor', 'pointer'); // Pointer cursor
   clearButton.mousePressed(clearCanvas); // Attach clear function
@@ -22,6 +24,11 @@ function setup() {
 
 function clearCanvas() {
   strokes = []; // Clear all strokes
+}
+
+function replayStrokes() {
+  // Placeholder for replay functionality
+  console.log('Replay button pressed');
 }
 
 function draw() {
@@ -103,6 +110,7 @@ function windowResized() {
   canvasSize = min(windowWidth, windowHeight);
   resizeCanvas(canvasSize, canvasSize);
   strokes = []; // Clear strokes on resize to avoid coordinate issues
-  // Reposition button after resize
-  clearButton.position(10, 10);
+  // Reposition buttons after resize
+  clearButton.position(windowWidth - 100, 10);
+  replayButton.position(10, windowHeight / 2 - 25);
 }

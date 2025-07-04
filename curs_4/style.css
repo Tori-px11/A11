@@ -13,3 +13,46 @@ html, body {
   height: 100%;
   background: black;
 }
+
+/* Общий стиль кнопок */
+.arrow-button, .top-left-button {
+  position: absolute;
+  background-color: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.3s;
+}
+
+.arrow-button:hover, .top-left-button:hover {
+  background-color: #bbb;
+}
+
+/* Стрелки по бокам */
+.left-arrow {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-arrow {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Кнопка в левом верхнем углу */
+.top-left-button {
+  left: 20px;
+  top: 20px;
+  width: auto;
+  padding: 0 15px;
+  border-radius: 25px;
+  font-size: 18px;
+}

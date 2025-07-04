@@ -25,14 +25,6 @@ function setup() {
     confettiSize = max(confettiSize - 6, 8);
     textSize(confettiSize);
   });
-
-  // Кнопка "←" Назад
-  backBtn = createButton('🠄');
-  backBtn.position(20, 20);
-  styleButton(backBtn);
-  backBtn.mousePressed(() => {
-    window.history.back(); // Возвращаемся назад в браузере
-  });
 }
 
 function styleButton(btn) {
