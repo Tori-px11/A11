@@ -1,9 +1,9 @@
 let texts = [
   "Hello",
   "Right now, you need to rest",
-  "I'd like to ask you to put your phone down",
-  "Now you should dive into the music",
-  "And so you don’t feel lost, let the soothing sounds guide you to peace"
+  "I'd like to ask you to turn your notifications off and press F11 ",
+  "Now you should dive into the silence",
+  "Take 30 sec to think (or not)"
 ];
 
 let currentIndex = 0;
@@ -46,7 +46,7 @@ function draw() {
 
     if (showThankYou) {
       textSize(32);
-      text("ты молодец", width / 2, height / 2); // Changed to "ты молодец"
+      text("good job", width / 2, height / 2); // Changed to "ты молодец"
     }
   }
 }

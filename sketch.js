@@ -22,12 +22,15 @@ function setup() {
 
   // Изначально показываем кнопку click here по центру
   const clickHereBtn = document.getElementById("clickHereBtn");
+  clickHereBtn.innerText = "click anywhere on the screen"; // Обновлённый текст
   clickHereBtn.style.display = "block";
   clickHereBtn.style.top = "50%";
   clickHereBtn.style.left = "50%";
   clickHereBtn.style.transform = "translate(-50%, -50%)";
-  clickHereBtn.style.backgroundColor = "#808080"; // Changed to
-  clickHereBtn.style.borderRadius = "30px"; // Increased roundness
+  clickHereBtn.style.backgroundColor = "#000000"; // Цвет изменён на чёрный
+  clickHereBtn.style.color = "#ffffff"; // Белый текст для контраста
+  clickHereBtn.style.borderRadius = "30px"; // Округлённые края
+
 
   // Обработчик клика на кнопку
   clickHereBtn.addEventListener("click", startAnimation);
