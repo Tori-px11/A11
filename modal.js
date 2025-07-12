@@ -4,7 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeBtn = document.querySelector('.close-btn');
   const typewriterText = document.getElementById('typewriterText');
 
-  const fullText = "This project is an interactive relaxation experience designed to help users unwind through dynamic visuals and soothing animations. Explore different relaxation modes by selecting the buttons, each offering a unique way to de-stress. Created with love and creativity by the team at [Your Project Name].";
+  const fullText = `My project — A11 
+    Is there anyone more important than yourself?
+
+    When you feel tired or low — remember yourself.
+    Put yourself first.
+
+    A is the first letter of the alphabet.
+    Just like you should be first for yourself.
+
+    11 is you and your needs.
+    Two ones side by side — you + what matters to you.
+
+    A11 is a reminder:
+    Take care of yourself. You come first.
+`;
 
   let index = 0;
   let isTyping = false;
@@ -28,17 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Space' && modal.style.display === 'flex') {
-      e.preventDefault(); // Prevent default spacebar behavior (e.g., scrolling)
-      typewriterText.textContent = fullText; // Show full text
-      typewriterText.parentElement.style.borderRight = 'none'; // Remove cursor
-      isTyping = false; // Stop animation
+      e.preventDefault();
+      typewriterText.innerHTML = fullText.replace(/\n/g, '<br>');
+      typewriterText.parentElement.style.borderRight = 'none';
+      isTyping = false;
     }
   });
 
   function startTypewriter() {
-    if (!isTyping) { // Only start if not already typing
+    if (!isTyping) {
       isTyping = true;
-      typewriterText.textContent = '';
+      typewriterText.innerHTML = '';
       typewriterText.parentElement.style.borderRight = '0.15em solid #ffc300';
       index = 0;
       type();
@@ -47,18 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function type() {
     if (index < fullText.length && isTyping) {
-      typewriterText.textContent += fullText.charAt(index);
+      const currentChar = fullText.charAt(index);
+      if (currentChar === '\n') {
+        typewriterText.innerHTML += '<br>';
+      } else {
+        typewriterText.innerHTML += currentChar;
+      }
       index++;
       setTimeout(type, 50);
     } else if (index >= fullText.length) {
-      isTyping = false; // Stop typing when complete
-      typewriterText.parentElement.style.borderRight = 'none'; // Remove cursor
+      isTyping = false;
+      typewriterText.parentElement.style.borderRight = 'none';
     }
   }
 
   function resetTypewriter() {
     isTyping = false;
-    typewriterText.textContent = '';
+    typewriterText.innerHTML = '';
     typewriterText.parentElement.style.borderRight = 'none';
   }
 });
