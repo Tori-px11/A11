@@ -10,7 +10,7 @@ function setup() {
   svg = SVG().addTo('#lava-wrapper').size(windowWidth, windowHeight);
 
   let group = makeFilter();
-  group.fill('#ffc300'); // 💛 заменённый цвет
+  group.fill('#ffc300'); 
 
   for (let i = 0; i < 40; i++) {
     blobs.push(new Lava(group));
